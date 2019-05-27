@@ -23,9 +23,9 @@ else:
 	]
 
 if sys.platform == "win32":
-	cflags = []
+	cflags = ["/O2"]
 else:
-	cflags = ["-msse4.2"]
+	cflags = ["-O3", "-msse4.2"]
 
 extensions = [Extension(
 	"metrohash",
@@ -44,7 +44,7 @@ with open("README.md", "r", encoding="utf-8") as fr:
 setup(
 	author="Dobatymo",
 	name="metrohash-python",
-	version="1.1.3.post1",
+	version="1.1.3.post2",
 	url="https://github.com/Dobatymo/metrohash-python",
 	ext_modules=extensions,
 	description="Python bindings for MetroHash",
