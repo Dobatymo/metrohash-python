@@ -1,0 +1,10 @@
+*.bak
+
+__pycache__/
+*.py[cod]
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/

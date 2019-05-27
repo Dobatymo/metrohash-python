@@ -1,0 +1,3 @@
+[submodule "MetroHash"]
+	path = MetroHash
+	url = https://github.com/jandrewrogers/MetroHash
