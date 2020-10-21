@@ -1,1 +1,2 @@
 include MetroHash/src/*.h
+global-include *.pyx
