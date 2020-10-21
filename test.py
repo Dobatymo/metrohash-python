@@ -1,4 +1,4 @@
-import sys, unittest
+import unittest
 from metrohash import metrohash64, metrohash128, MetroHash64, MetroHash128, bytes2hex
 
 class TestMetrohash(unittest.TestCase):

@@ -5,23 +5,6 @@ from libcpp cimport bool
 from libc.stdint cimport uint64_t, uint8_t
 from cython.operator cimport dereference as deref
 
-"""
-h = MetroHash128()
-h.update('asd')
-h.update('qwe')
-h.digest()
-
-is not the same as
-
-h = MetroHash128()
-h.update('asd')
-h.digest()
-h.update('qwe')
-h.digest()
-
-This is the same with hashlib.md5() for example
-"""
-
 cdef extern from "metrohash.h" nogil:
 
 	cdef cppclass CMetroHash64 "MetroHash64":
@@ -53,13 +36,13 @@ else:
 
 cpdef bytes metrohash64(bytes data, uint64_t seed=0ULL):
 
-	cdef bytearray out = bytearray(b"\0"*8)
+	cdef bytearray out = bytearray(8)
 	CMetroHash64.Hash(data, len(data), out, seed)
 	return bytes(out)
 
 cpdef bytes metrohash128(bytes data, uint64_t seed=0ULL):
 
-	cdef bytearray out = bytearray(b"\0"*16)
+	cdef bytearray out = bytearray(16)
 	CMetroHash128.Hash(data, len(data), out, seed)
 	return bytes(out)
 
@@ -77,7 +60,7 @@ cdef class MetroHash64(object):
 
 	@property
 	def name(self):
-		return 'metrohash64'
+		return "metrohash64"
 
 	def __cinit__(self, seed=0):
 		cdef uint64_t _seed
@@ -125,7 +108,7 @@ cdef class MetroHash128(object):
 
 	@property
 	def name(self):
-		return 'metrohash128'
+		return "metrohash128"
 
 	def __cinit__(self, seed=0):
 		cdef uint64_t _seed
@@ -136,6 +119,9 @@ cdef class MetroHash128(object):
 		else:
 			_seed = <uint64_t> seed
 			self._hasher = new CMetroHash128(_seed)
+
+		if self._hasher is NULL:
+			raise MemoryError()
 
 	def __dealloc__(self):
 		if self._hasher is not NULL:

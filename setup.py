@@ -1,26 +1,17 @@
 import sys
 from io import open
-from setuptools import setup, Extension
 
-try:
-	from Cython.Build import cythonize
-	USE_CYTHON = True
-except ImportError:
-	USE_CYTHON = False
+from Cython.Build import cythonize
+from setuptools import Extension, setup
 
 EXT_SOURCES = [
 	"MetroHash/src/metrohash64.cpp",
 	"MetroHash/src/metrohash128.cpp",
 ]
 
-if USE_CYTHON:
-	INT_SOURCES = [
-		"metrohash.pyx"
-	]
-else:
-	INT_SOURCES = [
-		"metrohash.cpp"
-	]
+INT_SOURCES = [
+	"metrohash.pyx"
+]
 
 if sys.platform == "win32":
 	cflags = ["/O2"]
@@ -35,18 +26,14 @@ extensions = [Extension(
 	language="c++"
 )]
 
-if USE_CYTHON:
-	extensions = cythonize(extensions)
-
 with open("README.md", "r", encoding="utf-8") as fr:
 	long_description = fr.read()
 
 setup(
 	author="Dobatymo",
 	name="metrohash-python",
-	version="1.1.3.post2",
+	version="1.1.3.1",
 	url="https://github.com/Dobatymo/metrohash-python",
-	ext_modules=extensions,
 	description="Python bindings for MetroHash",
 	long_description=long_description,
 	long_description_content_type="text/markdown",
@@ -63,5 +50,10 @@ setup(
 		"Topic :: Internet",
 		"Topic :: Scientific/Engineering",
 		"Topic :: Utilities"
-	]
+	],
+
+	ext_modules=cythonize(extensions),
+	python_requires=">=2.7",
+	use_2to3=False,
+	zip_safe=False,
 )
