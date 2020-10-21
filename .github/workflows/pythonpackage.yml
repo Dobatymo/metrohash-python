@@ -38,7 +38,7 @@ jobs:
         python test.py
 
   build-wheels:
-    #if: github.event_name == 'release' && github.event.action == 'published'
+    if: github.event_name == 'release' && github.event.action == 'published'
     needs: test
 
     strategy:
@@ -67,7 +67,7 @@ jobs:
         path: ./wheelhouse/*.whl
 
   build-sdist:
-    #if: github.event_name == 'release' && github.event.action == 'published'
+    if: github.event_name == 'release' && github.event.action == 'published'
     needs: test
 
     runs-on: ubuntu-latest
