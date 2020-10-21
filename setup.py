@@ -54,6 +54,7 @@ setup(
 
 	ext_modules=cythonize(extensions),
 	python_requires=">=2.7",
+	install_requires=["cython"],
 	use_2to3=False,
 	zip_safe=False,
 )
