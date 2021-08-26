@@ -16,7 +16,7 @@ INT_SOURCES = [
 if sys.platform == "win32":
 	cflags = ["/O2"]
 else:
-	cflags = ["-O3", "-msse4.2"]
+	cflags = ["-O3", "-march=native"]
 
 extensions = [Extension(
 	"metrohash",
