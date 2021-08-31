@@ -2,6 +2,7 @@ import sys
 from io import open
 
 from Cython.Build import cythonize
+import platform
 from setuptools import Extension, setup
 
 EXT_SOURCES = [
@@ -16,7 +17,10 @@ INT_SOURCES = [
 if sys.platform == "win32":
 	cflags = ["/O2"]
 else:
-	cflags = ["-O3", "-msse4.2"]
+	if platform.machine().lower() in ("x86_64", "amd64"):
+		cflags = ["-O3", "-msse4.2"]
+	else:
+		cflags = ["-O3", "-march=native"]
 
 extensions = [Extension(
 	"metrohash",
