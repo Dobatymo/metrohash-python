@@ -2,6 +2,7 @@ import sys
 from io import open
 
 from Cython.Build import cythonize
+import platform
 from setuptools import Extension, setup
 
 EXT_SOURCES = [
