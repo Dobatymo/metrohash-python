@@ -15,7 +15,7 @@ INT_SOURCES = [
 ]
 
 if sys.platform == "win32":
-	cflags = ["/O2"]
+	cflags = ["/O2", "/arch:AVX2"]
 else:
 	if platform.machine().lower() in ("x86_64", "amd64"):
 		cflags = ["-O3", "-msse4.2"]
