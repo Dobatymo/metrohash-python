@@ -1,9 +1,11 @@
 # distutils: language=c++
 
 import sys
-from libcpp cimport bool
-from libc.stdint cimport uint64_t, uint8_t
+
 from cython.operator cimport dereference as deref
+from libc.stdint cimport uint8_t, uint64_t
+from libcpp cimport bool
+
 
 cdef extern from "metrohash.h" nogil:
 

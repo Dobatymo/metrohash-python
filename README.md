@@ -4,7 +4,7 @@ Python bindings for the fast non-cryptograpical hash function MetroHash. MetroHa
 
 ## Requirements
 
-The library has been tested on Linux Python 2.7 and 3.6, and on Windows Python 3.5, 3.6, 3.7.
+The library has been tested on Linux Python 3.6, and on Windows Python 3.6, 3.7.
 
 ## Install
 
