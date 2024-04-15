@@ -1,10 +1,28 @@
 [build-system]
-requires = ["setuptools", "wheel", "Cython"]
+requires = [
+  "Cython",
+  "setuptools",
+  "wheel",
+]
 
 [tool.black]
 line-length = 120
 
+[tool.ruff]
+line-length = 120
+
 [tool.isort]
 profile = "black"
-src_paths = ["."]
 line_length = 120
+
+[tool.mypy]
+allow_redefinition = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[tool.bandit]
+skips = ["B101"]
+
+[tool.cython-lint]
+max-line-length = 120
+ignore = ["W191"]

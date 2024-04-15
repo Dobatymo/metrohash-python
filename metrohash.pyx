@@ -1,10 +1,7 @@
 # distutils: language=c++
 
-import sys
-
 from cython.operator cimport dereference as deref
 from libc.stdint cimport uint8_t, uint64_t
-from libcpp cimport bool
 
 
 cdef extern from "metrohash.h" nogil:
@@ -28,13 +25,6 @@ cdef extern from "metrohash.h" nogil:
 		void Hash(const uint8_t* buffer, const uint64_t length, uint8_t* const hash, const uint64_t seed)
 
 __all__ = ["MetroHash128", "MetroHash64", "metrohash128", "metrohash64"]
-
-if sys.version_info < (3, ):
-	def bytes2hex(b):
-		return b.encode("hex")
-else:
-	def bytes2hex(b):
-		return b.hex()
 
 cpdef bytes metrohash64(bytes data, uint64_t seed=0ULL):
 
@@ -91,7 +81,7 @@ cdef class MetroHash64(object):
 		return bytes(_hash)
 
 	def hexdigest(self):
-		return bytes2hex(self.digest())
+		return self.digest().hex()
 
 	def copy(self):
 		return MetroHash64(self)
@@ -139,7 +129,7 @@ cdef class MetroHash128(object):
 		return bytes(_hash)
 
 	def hexdigest(self):
-		return bytes2hex(self.digest())
+		return self.digest().hex()
 
 	def copy(self):
 		return MetroHash128(self)

@@ -11,13 +11,19 @@ EXT_SOURCES = [
 
 INT_SOURCES = ["metrohash.pyx"]
 
+machine = platform.machine().lower()
+x86 = ("x86_64", "amd64", "i386", "x86", "i686")
+
 if sys.platform == "win32":
-    cflags = ["/O2", "/arch:AVX2"]
-else:
-    if platform.machine().lower() in ("x86_64", "amd64"):
-        cflags = ["-O3", "-msse4.2"]
+    if machine in x86:
+        cflags = ["/O2", "/arch:AVX"]
     else:
-        cflags = ["-O3", "-march=native"]
+        cflags = ["/O2"]
+else:
+    if machine in x86:
+        cflags = ["-O2", "-mavx"]
+    else:
+        cflags = ["-O2"]
 
 extensions = [
     Extension(
@@ -54,7 +60,6 @@ setup(
         "Topic :: Utilities",
     ],
     ext_modules=cythonize(extensions),
-    python_requires=">=3.6",
-    use_2to3=False,
+    python_requires=">=3.7",
     zip_safe=False,
 )
