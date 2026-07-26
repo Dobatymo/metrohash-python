@@ -41,7 +41,7 @@ with open("README.md", encoding="utf-8") as fr:
 setup(
     author="Dobatymo",
     name="metrohash-python",
-    version="1.1.3.3",
+    version="1.1.3.4",
     url="https://github.com/Dobatymo/metrohash-python",
     description="Python bindings for MetroHash",
     long_description=long_description,
