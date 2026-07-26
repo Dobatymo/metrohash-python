@@ -9,7 +9,7 @@ EXT_SOURCES = [
     "MetroHash/src/metrohash128.cpp",
 ]
 
-INT_SOURCES = ["metrohash.pyx"]
+INT_SOURCES = ["src/metrohash/_metrohash.pyx"]
 
 machine = platform.machine().lower()
 x86 = ("x86_64", "amd64", "i386", "x86", "i686")
@@ -27,7 +27,7 @@ else:
 
 extensions = [
     Extension(
-        "metrohash",
+        "metrohash._metrohash",
         sources=EXT_SOURCES + INT_SOURCES,
         extra_compile_args=cflags,
         include_dirs=["MetroHash/src"],
@@ -41,7 +41,7 @@ with open("README.md", encoding="utf-8") as fr:
 setup(
     author="Dobatymo",
     name="metrohash-python",
-    version="1.1.3.3",
+    version="1.1.3.4",
     url="https://github.com/Dobatymo/metrohash-python",
     description="Python bindings for MetroHash",
     long_description=long_description,
@@ -62,4 +62,13 @@ setup(
     ext_modules=cythonize(extensions),
     python_requires=">=3.7",
     zip_safe=False,
+    package_dir={"": "src"},
+    packages=["metrohash"],
+    package_data={
+        "metrohash": ["*.pyi", "py.typed"],
+    },
+    exclude_package_data={
+        "metrohash": ["*.pyx", "*.cpp", "*.c"],
+    },
+    include_package_data=True,
 )

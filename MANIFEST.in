@@ -1,2 +1,2 @@
 include MetroHash/src/*.h
-global-include *.pyx
+recursive-include src/metrohash *.pyx *.pyi py.typed
